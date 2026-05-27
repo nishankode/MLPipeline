@@ -16,14 +16,9 @@ class ModelTraining:
 	def train(self):
 
 		# Loading the data
-		train_data = pd.read_csv(self.config.train_data)
-		test_data = pd.read_csv(self.config.test_data)
+		X_train = pd.read_csv(self.config.X_train_data)
+		y_train = pd.read_csv(self.config.y_train_data)
 
-		# Splitting to X and Y splits
-		X_train = train_data.drop(columns=[self.config.target])
-		y_train = train_data[self.config.target]
-		X_test = test_data.drop(columns=[self.config.target])
-		y_test = test_data[self.config.target]
 
 		# Configuring the model
 		model = ElasticNet(

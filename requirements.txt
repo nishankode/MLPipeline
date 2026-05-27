@@ -13,3 +13,5 @@ joblib
 types-PyYAML
 fastapi
 uvicorn
+python-dotenv
+prefect

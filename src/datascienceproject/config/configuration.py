@@ -8,6 +8,7 @@ from src.datascienceproject.entity.config_entity import DataIngestionConfig
 from src.datascienceproject.entity.config_entity import DataValidationConfig
 from src.datascienceproject.entity.config_entity import DataTransformationConfig
 from src.datascienceproject.entity.config_entity import ModelTrainingConfig
+from src.datascienceproject.entity.config_entity import ModelEvaluationConfig
 
 class ConfigurationManager:
     
@@ -61,12 +62,15 @@ class ConfigurationManager:
 	def get_data_transformation_config(self) -> DataTransformationConfig:
 		
 		config = self.config.data_transformation
+		target = self.schema.TARGET_COLUMN
 
 		create_directories([config.root_dir])
 
 		data_transformation_config = DataTransformationConfig(
 			root_dir = config.root_dir,
 			data_path = config.data_path,
+			target = target.name,
+			test_size = config.test_size
 		)
 
 		return data_transformation_config
@@ -81,8 +85,8 @@ class ConfigurationManager:
 
 		model_training_configs = ModelTrainingConfig(
 			root_dir = config.root_dir,
-			train_data = config.train_data,
-			test_data = config.test_data,
+			X_train_data = config.X_train_data,
+			y_train_data = config.y_train_data,
 			model_name = config.model_name,
 			alpha = params.alpha,
 			l1_ratio = params.l1_ratio,
@@ -90,3 +94,24 @@ class ConfigurationManager:
 		)
 
 		return model_training_configs
+	
+	def get_model_evaluation_configs(self):
+
+		config = self.config.model_evaluation
+		schema = self.schema
+		params = self.params
+		create_directories([config.root_dir])
+
+		model_evaluation_config = ModelEvaluationConfig(
+			root_dir = config.root_dir,
+			X_train_data = config.X_train_data,
+			X_test_data = config.X_test_data,
+			y_train_data = config.y_train_data,
+			y_test_data = config.y_test_data,
+			model_path = config.model_path,
+			metric_file_name = config.metric_file_name,
+			target = schema.TARGET_COLUMN.name,
+			all_params = params.ElasticNet
+		)
+
+		return model_evaluation_config
