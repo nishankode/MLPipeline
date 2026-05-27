@@ -1,0 +1,15 @@
+# Add your dependencies here
+numpy
+pandas
+scikit-learn
+notebook
+ensure
+python-box
+mlflow
+matplotlib
+pyYAML
+tqdm
+joblib
+types-PyYAML
+fastapi
+uvicorn
